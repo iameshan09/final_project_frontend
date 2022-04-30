@@ -2,7 +2,15 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import * as Assets from '../../../assets/utils/index';
 import fonts from '../../styles/fonts';
-import * as Function from './HomeFunction';
+
+const navigationToDutyPointView = props => {
+  props.navigation.navigate('DutyPoint');
+};
+
+const navigationToFutureTrafficView = props => {
+  props.navigation.navigate('FutureTraffic');
+};
+
 export default function HomeView(props) {
   const [status, setStatus] = useState();
   return (
@@ -17,19 +25,22 @@ export default function HomeView(props) {
         <View style={styles.contentMiddleTopView}>
           <Image style={styles.imgStyle} source={Assets.car} />
         </View>
-        <View style={styles.contentMiddleButtonView}>
+        <View style={styles.contentMiddleBottomView}>
           <TouchableOpacity
-            onPress={() => Function.navigationFunction(props)}
+            onPress={() => navigationToDutyPointView(props)}
             style={styles.contentTouchButtonView}>
             <Text style={styles.txtStyle}>Start duty </Text>
             <Image style={styles.imgStyle3} source={Assets.arrow_right} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.contentButtomView}>
-        <View style={styles.bubbleTraffic}>
-          <Image style={styles.imgStyle4} source={Assets.traffic_light} />
-        </View>
+      <View style={styles.contentBottomView}>
+        <TouchableOpacity onPress={() => navigationToFutureTrafficView(props)}>
+          <View style={styles.bubbleTraffic}>
+            <Image style={styles.imgStyle4} source={Assets.traffic_light} />
+          </View>
+          <Text style={styles.txtStyle2}>Future Traffic </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -77,13 +88,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  contentButtomView: {
+  contentBottomView: {
     flex: 3,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: '90%',
-    marginLeft: 10,
-    marginTop: 10,
+    width: '80%',
+    marginTop: 25,
   },
   contentMiddleTopView: {
     flex: 1,
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#C70039',
   },
-  contentMiddleButtonView: {
+  contentMiddleBottomView: {
     flex: 1,
     width: '100%',
 
@@ -143,11 +153,16 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   bubbleTraffic: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     backgroundColor: '#D4D4D4',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  txtStyle2: {
+    color: 'black',
+    fontFamily: fonts.regular,
+    fontSize: 12,
   },
 });

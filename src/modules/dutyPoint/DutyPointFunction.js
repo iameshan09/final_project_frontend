@@ -28,13 +28,13 @@ export function geoCorder(props) {
   Geocoder.from(props.latitude, props.longitude)
 
     .then(json => {
-      console.log(json);
+      //console.log(json);
 
-      var addressComponent = json.results[0].address_components;
+      var formatted_address = json.results[0].formatted_address;
 
-      props.setCurrentAddressAction(addressComponent);
+      props.setCurrentAddressAction(formatted_address);
 
-      console.log(addressComponent);
+      console.log(formatted_address);
     })
 
     .catch(error => console.warn(error));
@@ -45,6 +45,7 @@ export function getNearestDutyPoints(props) {
   axios
     .get(
       `http://${CURRENT_IP}:4000/app/main/nearestDutyPoints/${props.latitude}/${props.longitude}`,
+      //`http://${CURRENT_IP}:4000/app/main/nearestDutyPoints/${clatitude}/${clongitude}`,
     )
     .then(
       response => {

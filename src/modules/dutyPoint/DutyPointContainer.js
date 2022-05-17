@@ -40,7 +40,7 @@ export default compose(
     componentDidMount() {
       console.log('Duty point Screen');
       Function.getCurrentPosition(this.props);
-      //Function.geoCorder(this.props);
+      Function.geoCorder(this.props);
       Function.getNearestDutyPoints(this.props);
     },
   }),

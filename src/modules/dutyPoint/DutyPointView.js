@@ -39,7 +39,11 @@ export default function DutyPointView(props) {
         <View style={styles.contentTopRightView}></View>
       </View>
       <View style={styles.contentTopView2}>
-        <Text style={styles.text}></Text>
+        <View style={styles.contentTopView2Top}></View>
+        <View style={styles.contentTopMiddleView2Middle}>
+          <Text style={styles.text}>{props.currentAddress}</Text>
+        </View>
+        <View style={styles.contentBottomView2Bottom}></View>
       </View>
       <View style={styles.contentTopView3}>
         <DropDownPicker
@@ -108,12 +112,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   contentTopView2: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
+    //flexDirection: 'row',
     backgroundColor: 'blue',
     width: '100%',
   },
@@ -138,10 +141,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   text: {
-    width: '90%',
-    height: 35,
-    backgroundColor: '#D4D4D4',
     color: 'black',
+    marginStart: 10,
   },
   pickerContainerStyle: {
     width: '90%',
@@ -177,5 +178,27 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: fonts.bold,
     fontSize: 15,
+  },
+  contentTopView2Top: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 35,
+    width: '90%',
+  },
+  contentTopMiddleView2Middle: {
+    flex: 3,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    height: 35,
+    backgroundColor: '#D4D4D4',
+    width: '90%',
+  },
+  contentBottomView2Bottom: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 35,
+    width: '90%',
   },
 });

@@ -9,3 +9,5 @@ export const layer_blue = require('../images/layer_blue.png');
 export const layer_grey = require('../images/layer_grey.png');
 export const list_blue = require('../images/list_blue.png');
 export const list_grey = require('../images/list_grey.png');
+export const x_axis_label = require('../images/x-axis_label.png');
+export const y_axis_label = require('../images/y-axis_label.png');

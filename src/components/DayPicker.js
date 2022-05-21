@@ -22,7 +22,14 @@ export default function DayPicker(props) {
             //setSunday(true);
             handleDayChange(0);
           }}>
-          <Text style={styles.pickerlable}>S</Text>
+          <Text
+            style={
+              props.selectedDay == 0
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            S
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -37,7 +44,14 @@ export default function DayPicker(props) {
             //setMonday(true);
             handleDayChange(1);
           }}>
-          <Text style={styles.pickerlable}>M</Text>
+          <Text
+            style={
+              props.selectedDay == 1
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            M
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -52,7 +66,14 @@ export default function DayPicker(props) {
             // setTuesday(true);
             handleDayChange(2);
           }}>
-          <Text style={styles.pickerlable}>T</Text>
+          <Text
+            style={
+              props.selectedDay == 2
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            T
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -67,7 +88,14 @@ export default function DayPicker(props) {
             // setWednesday(true);
             handleDayChange(3);
           }}>
-          <Text style={styles.pickerlable}>W</Text>
+          <Text
+            style={
+              props.selectedDay == 3
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            W
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -82,7 +110,14 @@ export default function DayPicker(props) {
             // setThursday(true);
             handleDayChange(4);
           }}>
-          <Text style={styles.pickerlable}>T</Text>
+          <Text
+            style={
+              props.selectedDay == 4
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            T
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -97,7 +132,14 @@ export default function DayPicker(props) {
             //setFriday(true);
             handleDayChange(5);
           }}>
-          <Text style={styles.pickerlable}>F</Text>
+          <Text
+            style={
+              props.selectedDay == 5
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            F
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.pickerButtonContainer}>
@@ -112,7 +154,14 @@ export default function DayPicker(props) {
             //setSaturday(true);
             handleDayChange(6);
           }}>
-          <Text style={styles.pickerlable}>S</Text>
+          <Text
+            style={
+              props.selectedDay == 6
+                ? styles.pickerlableSelected
+                : styles.pickerlable
+            }>
+            S
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -126,7 +175,7 @@ const styles = StyleSheet.create({
   pickerView: {
     width: '100%',
     height: 60,
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -148,14 +197,19 @@ const styles = StyleSheet.create({
   pickerButtonClicked: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     backgroundColor: '#132D64',
   },
   pickerlable: {
-    fontFamily: fonts.bold,
-    fontSize: 13,
+    fontFamily: fonts.medium,
+    fontSize: 15,
     color: 'black',
+  },
+  pickerlableSelected: {
+    fontFamily: fonts.medium,
+    fontSize: 15,
+    color: 'white',
   },
 });

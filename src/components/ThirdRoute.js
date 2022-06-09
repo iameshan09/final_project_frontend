@@ -5,7 +5,7 @@ import fonts from '../styles/fonts';
 import DayPicker from './DayPicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
-import {CURRENT_IP} from '@env';
+import {BASE_URL} from '@env';
 
 export default function ThirdRoute() {
   const [selectedDay, setSelectedDay] = useState(0);
@@ -38,7 +38,7 @@ export default function ThirdRoute() {
 
   const fetchData = async () => {
     const response = await axios.get(
-      `http://${CURRENT_IP}:4000/app/main/getTimeFramesAndRoads/${selectedDay}/${value2}`,
+      `${BASE_URL}/app/main/getTimeFramesAndRoads/${selectedDay}/${value2}`,
     );
     return response;
   };

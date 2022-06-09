@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Home from '../home/HomeContainer';
 import DutyPoint from '../dutyPoint/DutyPointContainer';
 import FutureTraffic from '../futureTraffic/FutureTrafficContainer';
+import Suggestions from '../suggestions/SuggestionsContatiner';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ export default function App() {
         <Stack.Screen
           name="FutureTraffic"
           component={FutureTraffic}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Suggestions"
+          component={Suggestions}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -2,7 +2,6 @@
   package="com.final_project_frontend">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   
 
@@ -27,7 +26,6 @@
        <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyDHPMjd7A_9SnP1X9rQW3osfwKHdanjJGE"/>
-
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>

@@ -11,24 +11,67 @@ import * as Assets from '../../../assets/utils/index';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import fonts from '../../styles/fonts';
+import Geocoder from '../../geocorder/Geocorder';
+import axios from 'axios';
+import {BASE_URL} from '@env';
 
 export default function DutyPointView(props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
+  const [address, setAddress] = useState('Your Address');
 
   // const _handleRegionChangeComplete = e => {
   //   console.log(e);
   // };
+
+  const geoCorder = () => {
+    Geocoder.from(props.latitude, props.longitude)
+
+      .then(json => {
+        setAddress(json.results[0].formatted_address);
+        console.log(json.results[0].formatted_address);
+      })
+
+      .catch(error => console.warn(error));
+  };
+
+  const getNearestDutyPoints = () => {
+    let clatitude = 6.878314;
+    let clongitude = 79.876242;
+    axios
+      .get(
+        `${BASE_URL}/app/main/nearestDutyPoints/${props.latitude}/${props.longitude}`,
+      )
+      .then(
+        response => {
+          if (Object.keys(response.data).length) {
+            setItems(response.data);
+            setValue(response.data[0].value);
+          }
+        },
+        error => {
+          console.error(error);
+        },
+      );
+  };
+
+  const navigationToSuggestionsView = props => {
+    props.navigation.navigate('Suggestions');
+  };
 
   const _onConfirmPress = () => {
     console.log('pressed');
   };
 
   useEffect(() => {
-    setItems(props.dutyPoints);
-    setValue(props.defaultValue);
-  }, []);
+    if (props.latitude != 0 && props.longitude != 0) {
+      geoCorder();
+      getNearestDutyPoints();
+    }
+
+    console.log(BASE_URL);
+  }, [props.latitude, props.longitude]);
 
   return (
     <View style={styles.contentView}>
@@ -38,14 +81,10 @@ export default function DutyPointView(props) {
         </View>
         <View style={styles.contentTopRightView}></View>
       </View>
-      <View style={styles.contentTopView2}>
-        <View style={styles.contentTopView2Top}></View>
-        <View style={styles.contentTopMiddleView2Middle}>
-          <Text style={styles.text}>{props.currentAddress}</Text>
+      <View style={styles.contentMiddleView}>
+        <View style={styles.addressContainer}>
+          <Text style={styles.text}>{address}</Text>
         </View>
-        <View style={styles.contentBottomView2Bottom}></View>
-      </View>
-      <View style={styles.contentTopView3}>
         <DropDownPicker
           open={open}
           value={value}
@@ -56,6 +95,25 @@ export default function DutyPointView(props) {
           containerStyle={styles.pickerContainerStyle}
           style={styles.pickerStyle}
           dropDownContainerStyle={styles.dropDownContainerStyle}
+          placeholder={'Select your duty point'}
+          placeholderStyle={styles.dropDownPlaceholderStyle}
+          ListEmptyComponent={({
+            listMessageContainerStyle,
+            listMessageTextStyle,
+            ActivityIndicatorComponent,
+            loading,
+            message,
+          }) => (
+            <View style={listMessageContainerStyle}>
+              {loading ? (
+                <ActivityIndicatorComponent />
+              ) : (
+                <Text style={styles.listMessageTextStyle}>
+                  No duty points found
+                </Text>
+              )}
+            </View>
+          )}
         />
       </View>
       <View style={styles.contentBottomView}>
@@ -79,7 +137,7 @@ export default function DutyPointView(props) {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.7}
-          onPress={_onConfirmPress}>
+          onPress={() => navigationToSuggestionsView(props)}>
           <Text style={styles.buttontxt}>Confirm</Text>
         </TouchableOpacity>
       </View>
@@ -99,33 +157,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: 'red',
   },
   contentTopLeftView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
   },
   contentTopRightView: {
     flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  contentTopView2: {
-    flex: 1,
+  contentMiddleView: {
+    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    //flexDirection: 'row',
-    backgroundColor: 'blue',
-    width: '100%',
-  },
-  contentTopView3: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     width: '100%',
   },
   contentBottomView: {
@@ -141,6 +189,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   text: {
+    fontFamily: fonts.medium,
     color: 'black',
     marginStart: 10,
   },
@@ -179,26 +228,19 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
     fontSize: 15,
   },
-  contentTopView2Top: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 35,
-    width: '90%',
-  },
-  contentTopMiddleView2Middle: {
-    flex: 3,
+  addressContainer: {
     alignItems: 'flex-start',
     justifyContent: 'center',
     height: 35,
     backgroundColor: '#D4D4D4',
     width: '90%',
+    marginBottom: 10,
   },
-  contentBottomView2Bottom: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 35,
-    width: '90%',
+  listMessageTextStyle: {
+    fontFamily: fonts.regular,
+    color: 'red',
+  },
+  dropDownPlaceholderStyle: {
+    fontFamily: fonts.medium,
   },
 });
